@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="shortcut icon" href="luta.png" type="image/x-icon">
+
+  <title>Timeline do Projeto | Escola Musical Casa da Música</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f7f2eb;
+      color: #2b2118;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: auto;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #8b5a2b, #2d1d13);
+      color: #fff;
+      padding: 42px;
+      border-radius: 28px;
+      margin-bottom: 34px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.15);
+    }
+
+    .hero span {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      background: rgba(255,255,255,.14);
+      padding: 9px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(30px, 5vw, 46px);
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      max-width: 920px;
+      line-height: 1.7;
+      color: #f8ead9;
+      font-size: 16px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .summary-card {
+      background: #fff;
+      border: 1px solid #e3d4c3;
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.06);
+    }
+
+    .summary-card i {
+      font-size: 30px;
+      color: #8b5a2b;
+    }
+
+    .summary-card h3 {
+      margin-top: 10px;
+      font-size: 28px;
+    }
+
+    .summary-card p {
+      color: #786756;
+      font-size: 14px;
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    .section-title {
+      margin-bottom: 22px;
+    }
+
+    .section-title h2 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .section-title p {
+      color: #766857;
+      line-height: 1.6;
+    }
+
+    .timeline {
+      position: relative;
+      margin-top: 20px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 30px;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: #d6c1a8;
+      border-radius: 30px;
+    }
+
+    .step {
+      position: relative;
+      background: #fff;
+      margin-left: 82px;
+      margin-bottom: 26px;
+      padding: 28px;
+      border-radius: 24px;
+      border: 1px solid #e1d1bd;
+      box-shadow: 0 14px 36px rgba(0,0,0,.07);
+    }
+
+    .step::before {
+      content: attr(data-step);
+      position: absolute;
+      left: -82px;
+      top: 26px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #8b5a2b;
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: 18px;
+      box-shadow: 0 8px 20px rgba(139,90,43,.35);
+    }
+
+    .step.done::before {
+      background: #1f8a4c;
+    }
+
+    .step.current {
+      border: 2px solid #8b5a2b;
+      background: #fffaf4;
+    }
+
+    .step.current::before {
+      background: #f59e0b;
+    }
+
+    .step.pending::before {
+      background: #9ca3af;
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .step h3 {
+      font-size: 23px;
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      color: #6f5f4f;
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      white-space: nowrap;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .tag.done {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .tag.current {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .tag.pending {
+      background: #f3f4f6;
+      color: #4b5563;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .feature {
+      background: #f9f3eb;
+      border: 1px solid #eadccb;
+      border-radius: 15px;
+      padding: 14px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .feature i {
+      color: #8b5a2b;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .final-box {
+      margin-top: 38px;
+      padding: 36px;
+      border-radius: 28px;
+      background: #153b2c;
+      color: white;
+      text-align: center;
+    }
+
+    .final-box h2 {
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .final-box p {
+      color: #dcfce7;
+      line-height: 1.7;
+      max-width: 860px;
+      margin: auto;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        padding: 20px 12px;
+      }
+
+      .summary-grid,
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 28px;
+      }
+
+      .step {
+        margin-left: 66px;
+        padding: 22px;
+      }
+
+      .step::before {
+        left: -70px;
+        width: 54px;
+        height: 54px;
+      }
+
+      .step-header {
+        flex-direction: column;
+      }
+
+      .tag {
+        white-space: normal;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <section class="hero">
+      <span><i class="ri-music-2-line"></i> Escola Musical Casa da Música</span>
+      <h1>Timeline completa do desenvolvimento do sistema interno</h1>
+      <p>
+        Esta linha do tempo apresenta, de forma organizada e transparente, todas as etapas do projeto:
+        desde a formalização do contrato, pagamento inicial, análise de requisitos, criação do servidor local,
+        estruturação do protótipo, desenvolvimento das telas principais, integração com WhatsApp e preparação
+        da IA de atendimento para suporte ao cliente.
+      </p>
+    </section>
+
+    <section class="summary-grid">
+      <div class="summary-card">
+        <i class="ri-file-shield-2-line"></i>
+        <h3>Contrato</h3>
+        <p>Projeto formalizado para desenvolvimento do sistema interno da escola.</p>
+      </div>
+
+      <div class="summary-card">
+        <i class="ri-bank-card-line"></i>
+        <h3>Financeiro</h3>
+        <p>Primeira etapa financeira confirmada para início do desenvolvimento.</p>
+      </div>
+
+      <div class="summary-card">
+        <i class="ri-code-box-line"></i>
+        <h3>Protótipo</h3>
+        <p>Sistema funcional em desenvolvimento com servidor local e banco JSON.</p>
+      </div>
+
+      <div class="summary-card">
+        <i class="ri-robot-2-line"></i>
+        <h3>IA</h3>
+        <p>Assistente preparado para responder dúvidas sobre o projeto e andamento.</p>
+      </div>
+    </section>
+
+    <div class="section-title">
+      <h2>Etapas reais do projeto</h2>
+      <p>Ordem organizada do que foi feito, o que está em andamento e o que ainda será finalizado.</p>
+    </div>
+
+    <section class="timeline">
+
+      <div class="step done" data-step="1">
+        <div class="step-header">
+          <div>
+            <h3>Formalização do contrato</h3>
+            <p>
+              O projeto foi iniciado de forma profissional com a criação e assinatura do contrato,
+              deixando claro que o desenvolvimento seria feito para atender as necessidades internas
+              da Escola Musical Casa da Música.
+            </p>
+          </div>
+          <span class="tag done">Concluído</span>
+        </div>
+
+        <div class="features">
+          <div class="feature"><i class="ri-check-line"></i> Contrato gerado para formalizar o serviço</div>
+          <div class="feature"><i class="ri-check-line"></i> Definição do sistema como solução interna da escola</div>
+          <div class="feature"><i class="ri-check-line"></i> Organização inicial do compromisso entre cliente e desenvolvedor</div>
+          <div class="feature"><i class="ri-check-line"></i> Base para iniciar o desenvolvimento com segurança</div>
+        </div>
+      </div>
+
+      <div class="step done" data-step="2">
+        <div class="step-header">
+          <div>
+            <h3>Confirmação financeira e pagamento inicial</h3>
+            <p>
+              Após a formalização, a parte financeira foi alinhada e o pagamento inicial foi confirmado,
+              liberando o início da produção do sistema.
+            </p>
+          </div>
+          <span class="tag done">Concluído</span>
+        </div>
+
+        <div class="features">
+          <div class="feature"><i class="ri-money-dollar-circle-line"></i> Primeira parcela confirmada</div>
+          <div class="feature"><i class="ri-calendar-check-line"></i> Próximas datas financeiras organizadas</div>
+          <div class="feature"><i class="ri-shield-check-line"></i> Desenvolvimento liberado após confirmação</div>
+          <div class="feature"><i class="ri-hand-coin-line"></i> Etapa financeira tratada separadamente do suporte técnico</div>
+        </div>
+      </div>
+
+      <div class="step done" data-step="3">
+        <div class="step-header">
+          <div>
+            <h3>Preparação do ambiente do projeto</h3>
+            <p>
+              Foi criada a estrutura inicial do projeto, com organização de arquivos, pasta pública,
+              servidor Node.js com Express e banco de dados em arquivos JSON para rodar localmente.
+            </p>
+          </div>
+          <span class="tag done">Concluído</span>
+        </div>
+
+        <div class="features">
+          <div class="feature"><i class="ri-server-line"></i> Servidor local usando Node.js e Express</div>
+          <div class="feature"><i class="ri-folder-3-line"></i> Organização de pastas do projeto</div>
+          <div class="feature"><i class="ri-database-2-line"></i> Banco inicial em JSON</div>
+          <div class="feature"><i class="ri-computer-line"></i> Estrutura pensada para rodar localmente</div>
+        </div>
+      </div>
+
+      <div class="step done" data-step="4">
+        <div class="step-header">
+          <div>
+            <h3>Formulário de análise de requisitos</h3>
+            <p>
+              Antes de avançar nas telas definitivas, foi desenvolvido um formulário de análise de requisitos
+              para coletar informações sobre salas, horários, turmas, alunos, professores, WhatsApp Manual,
+              dashboard e prioridades da escola.
+            </p>
+          </div>
+          <span class="tag done">Concluído</span>
+        </div>
+
+        <div class="features">
+          <div class="feature"><i class="ri-survey-line"></i> Formulário próprio para levantamento do sistema</div>
+          <div class="feature"><i class="ri-dashboard-3-line"></i> Perguntas sobre dashboard administrativo</div>
+          <div class="feature"><i class="ri-calendar-schedule-line"></i> Coleta sobre agenda, salas e horários</div>
+          <div class="feature"><i class="ri-whatsapp-line"></i> Levantamento das mensagens de WhatsApp necessárias</div>
+        </div>
+      </div>
+
+      <div class="step done" data-step="5">
+        <div class="step-header">
+          <div>
+            <h3>Resumo da análise de requisitos</h3>
+            <p>
+              Com as respostas do cliente, foi gerado um resumo completo para orientar o desenvolvimento.
+              Nele foram definidos pontos como quantidade de salas, horários, turmas por instrumento,
+              controle por horário, mensagens de WhatsApp e prioridade no controle de turmas e vagas.
+            </p>
+          </div>
+          <span class="tag done">Concluído</span>
+        </div>
+
+        <div class="features">
+          <div class="feature"><i class="ri-building-line"></i> Salas 01 a 08 CRV mapeadas</div>
+          <div class="feature"><i class="ri-time-line"></i> Horários de funcionamento definidos</div>
+          <div class="feature"><i class="ri-team-line"></i> Turmas por instrumento/aula</div>
+          <div class="feature"><i class="ri-focus-3-line"></i> Prioridade definida: controle de turmas e vagas</div>
+        </div>
+      </div>
+
+      <div class="step done" data-step="6">
+        <div class="step-header">
+          <div>
+            <h3>Estrutura inicial do sistema seguindo o protótipo</h3>
+            <p>
+              Após a análise, foi criada a estrutura visual inicial do sistema com tela de login,
+              dashboard, menu lateral, páginas internas e aparência administrativa profissional.
+            </p>
+          </div>
+          <span class="tag done">Concluído</span>
+        </div>
+
+        <div class="features">
+          <div class="feature"><i class="ri-login-circle-line"></i> Tela de login</div>
+          <div class="feature"><i class="ri-layout-left-line"></i> Menu lateral administrativo</div>
+          <div class="feature"><i class="ri-window-line"></i> Estrutura de páginas internas</div>
+          <div class="feature"><i class="ri-palette-line"></i> Visual alinhado ao sistema interno da escola</div>
+        </div>
+      </div>
+
+      <div class="step done" data-step="7">
+        <div class="step-header">
+          <div>
+            <h3>Dashboard administrativo</h3>
+            <p>
+              Foi criada a tela inicial do sistema com indicadores rápidos para facilitar o acompanhamento
+              da operação da escola.
+            </p>
+          </div>
+          <span class="tag done">Funcional</span>
+        </div>
+
+        <div class="features">
+          <div class="feature"><i class="ri-graduation-cap-line"></i> Total de alunos cadastrados</div>
+          <div class="feature"><i class="ri-user-star-line"></i> Professores ativos</div>
+          <div class="feature"><i class="ri-team-line"></i> Turmas abertas</div>
+          <div class="feature"><i class="ri-door-open-line"></i> Vagas disponíveis</div>
+        </div>
+      </div>
+
+      <div class="step current" data-step="8">
+        <div class="step-header">
+          <div>
+            <h3>Agenda de hoje com filtro automático por data</h3>
+            <p>
+              O dashboard passou a mostrar automaticamente somente as aulas do dia atual,
+              evitando poluição visual e ajudando a secretaria a acompanhar a rotina diária.
+            </p>
+          </div>
+          <span class="tag current">Em refinamento</span>
+        </div>
+
+        <div class="features">
+          <div class="feature"><i class="ri-calendar-check-line"></i> Exibição automática das aulas do dia</div>
+          <div class="feature"><i class="ri-pages-line"></i> Paginação quando houver muitas aulas</div>
+          <div class="feature"><i class="ri-progress-5-line"></i> Controle visual de ocupação</div>
+          <div class="feature"><i class="ri-edit-line"></i> Edição rápida da turma pelo card</div>
+        </div>
+      </div>
+
+      <div class="step current" data-step="9">
+        <div class="step-header">
+          <div>
+            <h3>Agenda de salas completa</h3>
+            <p>
+              Foi criada uma área específica para visualizar todas as salas e turmas,
+              com filtro, paginação, edição e controle por data, sala, professor, horário e capacidade.
+            </p>
+          </div>
+          <span class="tag current">Em desenvolvimento</span>
+        </div>
+
+        <div class="features">
+          <div class="feature"><i class="ri-search-line"></i> Filtro por turma, sala, professor e horário</div>
+          <div class="feature"><i class="ri-calendar-event-line"></i> Data individual por aula/turma</div>
+          <div class="feature"><i class="ri-user-follow-line"></i> Professor vinculado à turma</div>
+          <div class="feature"><i class="ri-door-open-line"></i> Controle de capacidade e vagas</div>
+        </div>
+      </div>
+
+      <div class="step done" data-step="10">
+        <div class="step-header">
+          <div>
+            <h3>Cadastro e gestão de alunos</h3>
+            <p>
+              O módulo de alunos foi estruturado para cadastrar, listar, buscar, editar, excluir
+              e abrir contato direto via WhatsApp.
+            </p>
+          </div>
+          <span class="tag done">Funcional</span>
+        </div>
+
+        <div class="features">
+          <div class="feature"><i class="ri-user-add-line"></i> Cadastro completo do aluno</div>
+          <div class="feature"><i class="ri-search-line"></i> Busca por nome, telefone ou instrumento</div>
+          <div class="feature"><i class="ri-delete-bin-line"></i> Exclusão com confirmação em modal</div>
+          <div class="feature"><i class="ri-whatsapp-line"></i> WhatsApp direto do aluno</div>
+        </div>
+      </div>
+
+      <div class="step done" data-step="11">
+        <div class="step-header">
+          <div>
+            <h3>Cadastro e gestão de professores</h3>
+            <p>
+              O módulo de professores foi criado para controlar cadastro, especialidade, telefone,
+              status, edição, exclusão e comunicação por WhatsApp.
+            </p>
+          </div>
+          <span class="tag done">Funcional</span>
+        </div>
+
+        <div class="features">
+          <div class="feature"><i class="ri-user-star-line"></i> Cadastro de professores</div>
+          <div class="feature"><i class="ri-music-line"></i> Especialidade/instrumento</div>
+          <div class="feature"><i class="ri-edit-line"></i> Edição de dados</div>
+          <div class="feature"><i class="ri-whatsapp-line"></i> Contato rápido pelo WhatsApp</div>
+        </div>
+      </div>
+
+      <div class="step current" data-step="12">
+        <div class="step-header">
+          <div>
+            <h3>WhatsApp Manual Inteligente</h3>
+            <p>
+              A área de WhatsApp Manual foi reformulada para deixar de usar listas grandes em select
+              e passar a usar busca inteligente por aluno e turma, além de mensagens dinâmicas com dados reais.
+            </p>
+          </div>
+          <span class="tag current">Em desenvolvimento</span>
+        </div>
+
+        <div class="features">
+          <div class="feature"><i class="ri-search-eye-line"></i> Busca inteligente de aluno</div>
+          <div class="feature"><i class="ri-search-line"></i> Busca inteligente de turma/vaga</div>
+          <div class="feature"><i class="ri-message-3-line"></i> Botões de modelos de mensagem</div>
+          <div class="feature"><i class="ri-whatsapp-line"></i> Abertura do WhatsApp com texto pronto</div>
+        </div>
+      </div>
+
+      <div class="step done" data-step="13">
+        <div class="step-header">
+          <div>
+            <h3>Base de dados simulada</h3>
+            <p>
+              Para testar o sistema com volume realista, foram criados dados simulados de alunos,
+              professores e salas/turmas, permitindo validar filtros, paginações, dashboard e fluxo de uso.
+            </p>
+          </div>
+          <span class="tag done">Concluído</span>
+        </div>
+
+        <div class="features">
+          <div class="feature"><i class="ri-graduation-cap-line"></i> 100 alunos simulados</div>
+          <div class="feature"><i class="ri-user-star-line"></i> Professores suficientes para teste</div>
+          <div class="feature"><i class="ri-calendar-line"></i> Turmas e aulas simuladas</div>
+          <div class="feature"><i class="ri-database-2-line"></i> Dados distribuídos em arquivos JSON</div>
+        </div>
+      </div>
+
+      <div class="step current" data-step="14">
+        <div class="step-header">
+          <div>
+            <h3>IA de atendimento e suporte do projeto</h3>
+            <p>
+              Foi planejada e configurada uma IA de atendimento para auxiliar o cliente com dúvidas sobre o projeto,
+              andamento, funcionalidades e escopo, sem atrapalhar o fluxo principal do suporte.
+            </p>
+          </div>
+          <span class="tag current">Sincronizada</span>
+        </div>
+
+        <div class="features">
+          <div class="feature"><i class="ri-robot-2-line"></i> IA preparada com contexto do projeto</div>
+          <div class="feature"><i class="ri-question-answer-line"></i> Responde dúvidas sobre andamento</div>
+          <div class="feature"><i class="ri-file-list-3-line"></i> Conhece o escopo da análise de requisitos</div>
+          <div class="feature"><i class="ri-user-voice-line"></i> Apoio ao cliente sem interromper o desenvolvimento</div>
+        </div>
+      </div>
+
+      <div class="step pending" data-step="15">
+        <div class="step-header">
+          <div>
+            <h3>Perfil do usuário logado</h3>
+            <p>
+              Próxima melhoria visual: ao clicar no usuário no topo do sistema, será exibido um modal
+              com dados da conta, tipo de acesso, CPF, nascimento, instrumentos e WhatsApp.
+            </p>
+          </div>
+          <span class="tag pending">Próxima etapa</span>
+        </div>
+
+        <div class="features">
+          <div class="feature"><i class="ri-user-line"></i> Nome do usuário</div>
+          <div class="feature"><i class="ri-shield-user-line"></i> Tipo de conta</div>
+          <div class="feature"><i class="ri-id-card-line"></i> CPF e data de nascimento</div>
+          <div class="feature"><i class="ri-whatsapp-line"></i> WhatsApp e instrumentos</div>
+        </div>
+      </div>
+
+      <div class="step pending" data-step="16">
+        <div class="step-header">
+          <div>
+            <h3>Refinamentos finais e validação</h3>
+            <p>
+              Após finalizar as funções principais, serão feitos ajustes visuais, testes,
+              validações de formulário, correções e preparação para demonstração final ao cliente.
+            </p>
+          </div>
+          <span class="tag pending">Finalização</span>
+        </div>
+
+        <div class="features">
+          <div class="feature"><i class="ri-smartphone-line"></i> Ajustes responsivos</div>
+          <div class="feature"><i class="ri-bug-line"></i> Correções de bugs</div>
+          <div class="feature"><i class="ri-video-line"></i> Vídeo demonstrativo</div>
+          <div class="feature"><i class="ri-check-double-line"></i> Validação final com o cliente</div>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="final-box">
+      <h2>Status geral do projeto</h2>
+      <p>
+        O sistema já está em fase funcional de desenvolvimento, com contrato formalizado, análise de requisitos realizada,
+        servidor local estruturado, protótipo administrativo criado, dados simulados inseridos, módulos principais em andamento
+        e IA de atendimento já preparada para apoiar o cliente nas dúvidas sobre o projeto.
+      </p>
+    </section>
+
+  </div>
+
+</body>
+</html>
